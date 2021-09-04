@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkticketweb_backstage"]=self["webpackChunkticketweb_backstage"]||[]).push([[212],{212:function(e,n,t){t.r(n),t.d(n,{default:function(){return u}});var c=t(252);const r={class:"index container"};function a(e,n,t,a,i,u){const s=(0,c.up)("router-view");return(0,c.wg)(),(0,c.iD)("div",r,[(0,c.Wm)(s)])}var i={name:"index"};i.render=a;var u=i}}]);
+//# sourceMappingURL=212.ce8937d8.js.map

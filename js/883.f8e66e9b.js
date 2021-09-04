@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkticketweb_backstage"]=self["webpackChunkticketweb_backstage"]||[]).push([[883],{883:function(e,r,t){t.r(r),t.d(r,{default:function(){return k}});var n=t(252);const s={class:"orders"},a=(0,n._)("p",null,"All Orders",-1),c=[a];function u(e,r,t,a,u,i){return(0,n.wg)(),(0,n.iD)("div",s,c)}var i={name:"orders"};i.render=u;var k=i}}]);
+//# sourceMappingURL=883.f8e66e9b.js.map
