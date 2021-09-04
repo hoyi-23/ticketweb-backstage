@@ -2,6 +2,11 @@
 
 Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 
+登入帳號: test@test.com
+登入密碼: 123456
+
+也可以自行註冊
+
 ## 運用
 1. vue cli3 快速建構專案
 2. firebase (authentication / firestore) 做為後端
