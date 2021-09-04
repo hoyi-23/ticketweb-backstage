@@ -1,0 +1,40 @@
+body.dark{
+    //底層
+    --primary-background-color: #2a2b2e;
+    --primary-text-color: #fff;
+    //上層
+    --secondary-background-color: #363a44;
+    --secondary-text-color: hsla(0,0%,100%,.7);
+    //側欄
+    --sidebar-background-color: #e14eca;
+    --sidebar-text-color: #fff;
+    //按鍵
+    --button-background-color: #e14eca;
+    --button-hover: #911f8b;
+    --button-text-color: #fff;
+    //product table row
+    --table-row-background: #2a2b2e;
+    --table-row-text: #fff;
+
+    a{
+        color: #fff
+    }
+
+    .login, .register{
+        background-color: var(--secondary-background-color)
+    }
+
+    //productModal
+    .modal-mask{
+        background-color: rgba(245, 245, 245, 0.5);
+    }
+    .modal-container{
+        background-color: var(--primary-background-color);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+        color: var(--primary-text-color);
+    }
+    input,textarea,select{
+        background-color: var(--secondary-background-color);
+        color: var(--secondary-text-color)
+    } 
+}

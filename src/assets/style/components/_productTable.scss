@@ -1,0 +1,32 @@
+
+.productList__wrap{
+    position: absolute;
+    min-width: calc(100% - 3rem);
+    max-width: calc(100% - 3rem);
+    min-height: calc(100% - 4rem - 41.6px);
+    max-height: calc(100% - 4rem - 41.6px);
+    overflow-y: scroll;
+    table{
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        
+    }
+    thead{
+        display: table;
+        width: 100%;
+        text-align: center;
+        border-bottom: solid 1px;
+    }
+    tbody{
+        display: table;
+        width: 100%;
+        text-align: center;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        width: 18%;
+    }
+}

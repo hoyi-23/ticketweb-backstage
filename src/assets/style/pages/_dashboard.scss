@@ -1,0 +1,10 @@
+//內頁
+.dashboard{
+    min-height: 100vh;
+    .main{
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        min-height: calc(100vh - 66.4px - 20px);
+    }
+}

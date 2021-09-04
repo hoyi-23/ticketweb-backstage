@@ -1,0 +1,51 @@
+.toggleBtn{
+    position: absolute;
+    top: 66.4px;
+    right: -132px;
+    border: solid 2px;
+    border-radius: 10px;
+    padding: .5rem 0rem;
+    transition: .5s ease;
+    overflow: hidden;
+    z-index: 999;
+    padding: .3rem;
+    background-color: var(--primary-background-color);
+    @include lg{
+        position: relative;
+        top: 0px;
+        right: 0px;
+        border: none;
+        border-radius: 0px;
+        padding: 0rem;
+    }
+}
+.toggleBtn__Group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include lg{
+        flex-direction: row;
+    }
+}
+.toggleBtn__Item{
+    a{
+        display: block;
+        padding: 0.5rem .5rem;
+        @include lg{
+            padding: 0rem .5rem;
+        }
+    }
+}
+.toggleBtn__Item:nth-child(3){
+    a{
+        padding: .3rem .5rem;
+        @include lg{
+            margin-left: .5rem
+        }
+
+    }
+}
+
+.toggleBtn.slide{
+    right: 1rem;
+}

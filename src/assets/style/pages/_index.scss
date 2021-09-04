@@ -1,0 +1,14 @@
+//首頁
+.index{
+    min-height: 100vh;
+    position: relative;
+}
+//首頁登入與註冊
+.login,.register{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 5px;
+    padding: 2rem;
+}

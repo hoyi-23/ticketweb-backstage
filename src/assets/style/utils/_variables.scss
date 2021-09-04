@@ -1,0 +1,67 @@
+//font-size
+$sizer: 1rem !default;
+$sizes: (
+  1: $sizer * 2,
+  2: $sizer * 1.5,
+  3: $sizer * 1,
+  4: $sizer * 0.5,
+  5: $sizer * 0.25
+);
+
+@each $size, $sizeamount in $sizes{
+  .fs-#{$size}{
+    font-size: #{$sizeamount} !important;
+  }
+}
+
+.fw-bold{
+    font-weight: bold;
+}
+
+.text-center{
+    text-align: center;
+}
+
+//button
+
+.btn{
+  padding: .5rem;
+  border-radius: 10px;
+}
+
+
+//container
+.container{
+  margin: 0 auto;
+  overflow: hidden;
+  @include sm{
+    max-width: 540px;
+  }
+  @include md{
+    max-width: 720px;
+  }
+  @include lg{
+    max-width: 960px;
+  }
+  @include xl{
+    max-width: 1140px;
+  }
+  @include xxl{
+    max-width: 1320px;
+  }
+}
+
+.justify-content-between{
+  justify-content: space-between;
+}
+.justify-content-end{
+  justify-content: flex-end;
+}
+.justify-content-md-end{
+  @include md{
+    justify-content: flex-end;
+  }
+}
+.justify-content-center{
+  justify-content: center;
+}

@@ -1,0 +1,19 @@
+.navbar{
+    position: relative;
+    display: flex;
+    padding: 1.5rem 0rem 1rem 0rem;
+    justify-content: space-between;
+    .sidebarToggleIcon,
+    .toggleBtnIcon{
+        padding: 0rem 1rem;
+        @include md{
+            padding: 0rem;
+        }
+        @include lg{
+            display: none;
+        }
+    }
+    .btnGroup{
+        display: flex;
+    }
+}

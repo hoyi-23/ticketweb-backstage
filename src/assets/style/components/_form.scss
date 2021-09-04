@@ -1,0 +1,27 @@
+.formInput{
+  display: flex;
+  flex-direction: column;
+  label{
+    line-height: 1.5rem;
+    padding-bottom: .2rem;
+    span{
+      color: #ff0000;
+    }
+  }
+  input{
+    line-height: 2rem;
+    border: none;
+    box-shadow: 1px 1px 3px #888;
+  }
+  select{
+    height: 2rem;
+    border: none;
+    box-shadow: 1px 1px 3px #888;
+  }
+}
+
+.login,.register{
+  .formInput{
+    padding: 1rem;
+  }
+}

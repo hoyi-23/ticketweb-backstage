@@ -1,0 +1,22 @@
+//內頁商品&訂單&
+.products{
+    position: relative;
+    width: 100%;
+    padding: 1.5rem;
+    min-height: 100%;
+    border-radius: 10px;
+    overflow-y: hidden;
+    @include lg{
+        width: 80%;
+    }
+}
+.addProduct__wrap{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    .addProductBtn{
+        align-self: flex-end;
+        font-size: 1rem;
+        line-height: 22px;
+    }
+}

@@ -1,0 +1,84 @@
+body{
+    //底層
+    --primary-background-color: #f5f6fa;
+    --primary-text-color: #525f7f;
+    //上層
+    --secondary-background-color: #fff;
+    --secondary-text-color: rgba(34,42,66,.7);
+    //側欄
+    --sidebar-background-color: #b84592;
+    --sidebar-text-color: #fff;
+    //按鍵
+    --button-background-color: #b84592;
+    --button-hover: #832561;
+    --button-text-color: #fff;
+    --danger-background-color: #dd3d4b;
+    --danger-hover-background: #a51622;
+    --cancel-background-color: #fff;
+    --cancel-text-color: #000;
+    --cancel-hover-background:#000000;
+    //product table row
+    --table-row-background: #f2f2f2;
+    --table-row-text: #525f7f;
+}
+body{
+    //base
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    //components
+    .btn-primary{
+        background-color: var(--button-background-color);
+        color: var(--button-text-color)
+    }
+    .btn-primary:hover{
+        background-color: var(--button-hover);
+    }
+    .btn-danger{
+        background-color: var(--danger-background-color);
+        color: var(--button-text-color)
+    }
+    .btn-danger:hover{
+        background-color: var(--danger-hover-background);
+    }
+    .btn-cancel{
+        background-color: var(--cancel-background-color);
+        color: var(--cancel-text-color);
+    }
+    .btn-cancel:hover{
+        background-color: var(--cancel-hover-background);
+        color: #fff
+    }
+    .navbar{
+        background-color: var(--primary-background-color);
+        color: var(--primary-text-color)
+    }
+    .sidebar{
+        background-color: var(--sidebar-background-color);
+        color: var(--sidebar-text-color)
+    }
+    //productModal
+    .modal-mask{
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-container{
+        background-color:  var(--primary-background-color);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+        color: var(--primary-text-color);
+    }
+
+    //pages
+    .login, .register{
+        background-color: #f0f0f1;
+    }
+    .products{
+        background-color: var(--secondary-background-color)
+    }
+
+    //product-table
+    .productList__wrap{
+        tr:nth-child(even){
+            background-color: var(--table-row-background);
+            color: var(--table-row-text)
+        }
+    }
+}
