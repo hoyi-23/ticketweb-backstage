@@ -1,0 +1,32 @@
+.orders{
+    position: relative;
+    width: 100%;
+    padding: 1.5rem;
+    min-height: 100%;
+    border-radius: 10px;
+    overflow-y: hidden;
+    @include lg{
+        width: 80%;
+    }
+}
+.searchOrder__wrap{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    @include lg{
+        flex-direction: row;
+    }
+}
+.searchOrder{
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    @include lg{
+        margin-bottom: 0;
+    }
+    label{
+        margin-right: 1rem;
+    }
+}

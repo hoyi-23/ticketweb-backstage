@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import authUser from './auth/auth-user'
 import productsManage from './products/products-manage'
 import modalManage from './products/modal-manage'
-
+import order from './order/order'
 export default createStore({
   state:{
     isDarkMode: false,
@@ -26,6 +26,7 @@ export default createStore({
   modules: {
      authUser,
      modalManage,
-     productsManage
+     productsManage,
+     order
   }
 })

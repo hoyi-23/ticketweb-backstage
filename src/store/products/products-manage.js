@@ -46,7 +46,7 @@ export default({
       },
       //取得目前點選(刪除/編輯)資料
       async getCurrentProduct(context,payload){
-        const query = firebase.firestore().collection('products').where("eventId", "==", payload);
+        const query = await firebase.firestore().collection('products').where("eventId", "==", payload);
         await query.get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => { 
             //console.log(doc.id, " => ", doc.data());

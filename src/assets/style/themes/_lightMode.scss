@@ -70,12 +70,12 @@ body{
     .login, .register{
         background-color: #f0f0f1;
     }
-    .products{
+    .products,.orders{
         background-color: var(--secondary-background-color)
     }
 
-    //product-table
-    .productList__wrap{
+    //table
+    .table-container{
         tr:nth-child(even){
             background-color: var(--table-row-background);
             color: var(--table-row-text)

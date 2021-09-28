@@ -17,7 +17,7 @@
             </div>
         </div>
         <!---活動管理table-->
-        <div class="productList__wrap">
+        <div class="table-container">
             <table v-if="checkProductLoaded">
                 <thead>
                     <tr>

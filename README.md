@@ -20,9 +20,10 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 3. Loading樣式，增加使用者體驗
 4. 實現RWD
 5. 實現 theme toggle (dark/light mode)
+6. 顧客訂單管理(已表單列出/刪除/查看)
 
 ## 預計完成
-1. 顧客訂單管理
+1. localstorage保持登入狀態
 2. 加上場地與其他前台內容管理
 
 
