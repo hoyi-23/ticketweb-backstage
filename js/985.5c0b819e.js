@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkticketweb_backstage"]=self["webpackChunkticketweb_backstage"]||[]).push([[985],{63:function(e,t,n){n.r(t),n.d(t,{default:function(){return i}});var c=n(252);const s={class:"coupons"},a=(0,c._)("p",{class:"text-center"},"尚未建立任何Coupon",-1),u=[a];function r(e,t,n,a,r,o){return(0,c.wg)(),(0,c.iD)("div",s,u)}var o={name:"coupons"};o.render=r;var i=o}}]);
-//# sourceMappingURL=985.5c0b819e.js.map
