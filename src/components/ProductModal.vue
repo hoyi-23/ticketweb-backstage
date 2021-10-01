@@ -80,7 +80,7 @@
         <!--活動照片-->
                         <div class="grid">
                             <div class="formInput grid__item--md-span-6">
-                                <label for="eventPhotos">活動照片</label>
+                                <label for="eventPhotos">活動照片<span style="color: red; font-size: 10px;">請勿上傳超過1MB</span></label>
                                 <input type="file" id="eventPhotos" accept="image/gif,image/jpeg,image/jpg,image/png" @change="uploadPhoto" multiple="multiple" required/>
                             </div>
                             <div class="foremInput grid__item--md-span-6">
@@ -148,7 +148,7 @@ export default {
                     //eventPhotos.value = reader.result
                 }
                 img.onload = function(){
-                    //若圖片超過2400px就會壓縮成2400。高度按比例計算
+                    //若圖片超過1800px就會壓縮成1800。高度按比例計算
                     const w = Math.min(1800, img.width)
                     const h = img.height*(w/img.width)
                     const canvas = document.createElement('canvas')
@@ -156,8 +156,15 @@ export default {
                     canvas.width = w
                     canvas.height = h
                     ctx.drawImage(img,0,0,w,h)
-                    console.log(canvas.toDataURL('image/jpeg'))
-                    eventPhotos.value = canvas.toDataURL('image/jpeg')
+                    console.log(canvas.toDataURL('image/jpeg').length)
+                    if(canvas.toDataURL('image/jpeg').length>=1016907){
+                        alert('圖檔過大，請勿上船超過1MB')
+                        document.getElementById("eventPhotos").value=null; 
+                        return
+                    }else{
+                        eventPhotos.value = canvas.toDataURL('image/jpeg')
+                    }
+                    
                 }
             }
            

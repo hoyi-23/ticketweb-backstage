@@ -28,8 +28,9 @@ const secondaryAppConfig = {
   messagingSenderId: "620354483124",
   appId: "1:620354483124:web:5eaef9ab0417343c4938e1"
 }
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig);
 firebase.initializeApp(secondaryAppConfig, "secondary");
+firebase.firestore().settings({experimentalForceLongPolling: true, merge: true })
 
 //當authState改變，判斷是否為user，來移動路徑
 firebase.auth().onAuthStateChanged(function(user) {
