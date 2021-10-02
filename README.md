@@ -14,6 +14,8 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 4. Vue router 實現SPA
 5. VueX 實現資料管理
 
+-------
+
 ## 完成功能
 1. 登入&註冊
 2. 商品管理(新增/編輯/刪除)
@@ -21,6 +23,8 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 4. 實現RWD
 5. 實現 theme toggle (dark/light mode)
 6. 顧客訂單管理(已表單列出/刪除/查看)
+
+-------
 
 ## 專案預覽
 ### 登入註冊
@@ -38,18 +42,22 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
   4. 編輯商品
     ![](https://i.imgur.com/ayyETjA.png)
 
+-------
+
 ## 預計完成
 1. localstorage保持登入狀態
 2. 加上場地與其他前台內容管理
 3. 刪除項目時的確認機制
 
+-------
+
 ## 碰到的問題
-1. 圖片壓縮與預覽(解決，後來想要改為storage和firestore併用)
-#### 壓縮
+### 圖片壓縮與預覽(解決，後來想要改為storage和firestore併用)
+1. 壓縮
 上傳至firebase有檔案大小限制，不能超過	1048487 bytes 
 首先檢查上傳的圖檔高度是否大於1800px，如果超過圖片將按比例壓縮到高度為1800px。
 接著將圖片轉為toDataURL，檢查長度是否超過 1016907 字節()，若超過將警示。
-#### 預覽
+2. 預覽
 直接來看看我的程式碼做了什麼
 ```
   function uploadPhoto(e){
@@ -99,13 +107,13 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
   }
 ```
 
-2. firestore 上傳檔案大小限制
+### firestore 上傳檔案大小限制
 firestore上的檔案不能超過 1MiB，這個對於圖檔來說有點難。
 一開始我的做法是把圖檔壓縮再上傳，但是這樣在上傳圖檔時還是有很大限制。
 後來看到看到stack overflow上有人說可以將圖檔上傳到storage，
 等到需要拿取資料時再從storage拿。
-針對不同檔案firebase都定義好上傳與下載的方式，真的很方便。
-### 處理 CORS 問題
+
+1. 處理 CORS 問題
 firebase提供了一個工具gsutil來處理同源政策問題
 安裝完成後，新增兩個 json 檔案，一個 cors.json，一個 clear.json(此為空陣列)
 ```
@@ -118,19 +126,21 @@ firebase提供了一個工具gsutil來處理同源政策問題
 ]
 ```
 指向 cors.json 並運行命令 `gsutil cors set C:\Users\...\cors.json gs://sianzaren.appspot.com/`
-### 修改更新/新增/刪除方式(完成)
+2. 修改更新/新增/刪除方式(完成)
+針對不同格式檔案firebase都定義好上傳與下載的方式，真的很方便。
 
-3. firebase firestore 載入問題(尚未解決，研究中)
+### firebase firestore 載入問題(尚未解決，研究中)
 問題: 顯示網路連線不健康。
 思考: 看了很多資料，尚未得出結論。
+希望換成storage儲存圖檔會加速載入
 
-4. 同個表單做 正式發佈/草稿 區分
+### 同個表單做 正式發佈/草稿 區分
 我的方法是直接設兩個傳送值，分別為發佈和草稿。
 點選發佈按鈕 `eventActive.value = true;`
 點選儲存按鈕 `eventDraft.value = true;`
 這兩個值都會傳入後端
 
-5. 編輯與建立項目邏輯(解決)
+### 編輯與建立項目邏輯(解決)
 點選編輯操作鍵時，會有兩個動作:
  * 傳入editProduct為true，告知現在是要編輯
  * 傳入現在點擊的項目eventId，並推入currentProductArray
@@ -148,6 +158,8 @@ firebase提供了一個工具gsutil來處理同源政策問題
 所以將資料更新到後端後，我傳入當下更新文件的doc.id和event.id。將productData(取到的所有活動資料)內為此doc.id的物件刪掉，然後重新拿取資料，這樣拿到的就會是更新後的啦。
 (同時將editProduct值設為false，因為編輯結束了)
 (並在一次currentProduct，如果Modal還開著裡面的資料也會更新)
+
+-------
 
 ## Project setup
 ```
