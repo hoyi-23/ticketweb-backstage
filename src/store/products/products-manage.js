@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore'
-
+import 'firebase/firebase-storage'
 export default({
     state: {
       //資料狀態
@@ -12,29 +12,39 @@ export default({
     actions:{
       //後端取資料
       async getProduct({commit,state}){
+        var storageRef = firebase.storage().ref('Images/');
         var getData = firebase.firestore().collection('products');
         const results = await getData.get();
         results.forEach( doc => {
           //確保不重複拿取資料
           if(!state.productData.some( product => product.docId === doc.id)){
-            const data = {
-              docId: doc.id,
-              eventId: doc.data().eventId,
-              eventTitle: doc.data().eventTitle, 
-              eventType: doc.data().eventType,
-              eventCategory: doc.data().eventCategory,
-              eventLocation: doc.data().eventLocation,
-              eventFullPrice: doc.data().eventFullPrice,
-              eventStudentPrice: doc.data().eventStudentPrice,
-              eventDiscountPrice: doc.data().eventDiscountPrice,
-              eventStartDate: doc.data().eventStartDate,
-              eventEndDate: doc.data().eventEndDate,
-              eventDescription: doc.data().eventDescription,
-              eventPhotos: doc.data().eventPhotos,
-              eventActive: doc.data().eventActive,
-              eventDraft: doc.data().eventDraft
-            };
-            commit('SET_PRODUCT_DATA',data);
+            //取得storage內圖片的url
+            storageRef.child(doc.data().eventId+'.jpeg').getDownloadURL()
+            .then((photoUrl) => {
+              const data = {
+                docId: doc.id,
+                eventId: doc.data().eventId,
+                eventTitle: doc.data().eventTitle, 
+                eventType: doc.data().eventType,
+                eventCategory: doc.data().eventCategory,
+                eventLocation: doc.data().eventLocation,
+                eventFullPrice: doc.data().eventFullPrice,
+                eventStudentPrice: doc.data().eventStudentPrice,
+                eventDiscountPrice: doc.data().eventDiscountPrice,
+                eventStartDate: doc.data().eventStartDate,
+                eventEndDate: doc.data().eventEndDate,
+                eventDescription: doc.data().eventDescription,
+                eventPhotos: photoUrl,
+                eventActive: doc.data().eventActive,
+                eventDraft: doc.data().eventDraft
+              }
+              commit('SET_PRODUCT_DATA',data);
+            })
+            .catch((error) => {
+              // Handle any errors
+              console.log(error)
+            });
+           
           }
         });
         //確保資料完成拿取
@@ -46,13 +56,18 @@ export default({
       },
       //取得目前點選(刪除/編輯)資料
       async getCurrentProduct(context,payload){
-        const query = await firebase.firestore().collection('products').where("eventId", "==", payload);
+        var ImagesRef = await firebase.storage().ref('Images/');
+        const query = await firebase.firestore().collection('products').where("eventId", "==", payload)
+        var currentProductData = {}
         await query.get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => { 
-            //console.log(doc.id, " => ", doc.data());
-            const currentProductData = {docId: doc.id, data: doc.data()};
-            context.commit('SET_CURRENT_PRODUCT',currentProductData)
-          })})
+            currentProductData.docId = doc.id
+            currentProductData.data = doc.data()
+          })}) 
+        await ImagesRef.child(payload+'.jpeg').getDownloadURL().then((url)=>{
+            currentProductData.photoUrl = url
+          })
+          context.commit('SET_CURRENT_PRODUCT',currentProductData)
           context.dispatch('showingModal',true)
       },
       //updateProduct (已經將資料傳到後端後，要將後端的資料再重新取回來。)
@@ -63,13 +78,12 @@ export default({
         context.commit('DELETE_CURRENT_PRODUCT',docId);
         await context.dispatch('getProduct');
         context.dispatch('editProduct',false);
-        context.dispatch('getCurrentProduct',eventId)
       },
       //刪除所選
-        //
-      async deleteProduct({commit},docId){
+      async deleteProduct({commit},{docId,eventId}){
         const getProduct = firebase.firestore().collection('products').doc(docId)
         await getProduct.delete();
+        await firebase.storage().ref('Images/').child(eventId+'.jpeg').delete()
         commit('DELETE_CURRENT_PRODUCT',docId)
       }
       

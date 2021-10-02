@@ -17,7 +17,7 @@
             <p v-if="product.eventDraft">尚未啟用</p>
         </td>
         <td>
-            <button class="btn-danger fw-bold" type="button" @click="deleteEvent(product.docId)">刪除</button>
+            <button class="btn-danger fw-bold" type="button" @click="deleteEvent(product.docId,product.eventId)">刪除</button>
             <button class="btn-cancel fw-bold" type="button" @click="editEvent(product.eventId)">編輯</button>
         </td>
     </tr>
@@ -31,12 +31,12 @@ export default {
 
     setup(){
         const store = useStore();
-        function editEvent(e){
+        function editEvent(eventId){
             store.dispatch('editProduct',true)
-            store.dispatch('getCurrentProduct',e)
+            store.dispatch('getCurrentProduct',eventId)
         }
-        async function deleteEvent(e){
-            await store.dispatch('deleteProduct',e)
+        async function deleteEvent(docId,eventId){
+            await store.dispatch('deleteProduct',{docId,eventId})
             
             store.dispatch('getProduct')
         }

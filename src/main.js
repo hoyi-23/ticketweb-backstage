@@ -4,11 +4,10 @@ import VueAxios from 'vue-axios'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore'
+import 'firebase/firebase-storage'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
-
 
 
 const firebaseConfig = {

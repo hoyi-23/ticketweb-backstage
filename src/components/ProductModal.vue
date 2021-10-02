@@ -81,7 +81,7 @@
                         <div class="grid">
                             <div class="formInput grid__item--md-span-6">
                                 <label for="eventPhotos">活動照片<span style="color: red; font-size: 10px;">請勿上傳超過1MB</span></label>
-                                <input type="file" id="eventPhotos" accept="image/gif,image/jpeg,image/jpg,image/png" @change="uploadPhoto" multiple="multiple" required/>
+                                <input type="file" id="eventPhotos" accept="image/gif,image/jpeg,image/jpg,image/png" @change="uploadPhoto" multiple="multiple"/>
                             </div>
                             <div class="foremInput grid__item--md-span-6">
                                 <img :src="eventPhotos" class="preview">
@@ -91,7 +91,7 @@
                         <div class="grid justify-content-between">
                             <div class="grid__item--md-span-6">
                                 <button type="button" class="btn fw-bold btn-cancel" @click="closingModal">取消編輯</button>
-                                <button v-if="productEdit" type="submit" class="btn fw-bold btn-danger">儲存修改</button>
+                                <button type="submit" class="btn fw-bold btn-danger" v-if="productEdit" >儲存修改</button>
                             </div>
                             <div class="grid grid__item--md-span-6 justify-content-md-end">
                                 <button type="submit" class="btn fw-bold btn-cancel" @click="saveDraft">設為草稿</button>
@@ -111,6 +111,7 @@ import {useStore} from 'vuex'
 import {ref,computed,onBeforeMount} from 'vue'
 import firebase from 'firebase/app';
 import 'firebase/firestore'
+import 'firebase/firebase-storage'
 import OnLoad from '../components/OnLoad.vue'
 export default {
     name: 'ProductModal',
@@ -133,6 +134,27 @@ export default {
         const eventPhotos = ref(null);
         const eventActive = ref(null); //boolean是否為啟動中
         const eventDraft = ref(null); //boolean是否為草稿
+        //store
+        const db = firebase.firestore();
+        //建立活動publishEvent(啟用中)
+        function publishEvent(){
+            eventActive.value = true;
+            eventDraft.value = false;
+        }
+        //存為草稿
+        function saveDraft(){
+            eventDraft.value = true;
+            eventActive.value = false;
+        }
+        //submitForm上傳到firebase
+        function submitForm(){
+            if(productEdit.value){
+                 eventUpdate();
+                 return
+            }else{
+                eventUpload();
+            }
+        }
 
         //壓縮上傳圖片
         function uploadPhoto(e){
@@ -156,7 +178,7 @@ export default {
                     canvas.width = w
                     canvas.height = h
                     ctx.drawImage(img,0,0,w,h)
-                    console.log(canvas.toDataURL('image/jpeg').length)
+                    //console.log(canvas.toDataURL('image/jpeg').length)
                     if(canvas.toDataURL('image/jpeg').length>=1016907){
                         alert('圖檔過大，請勿上船超過1MB')
                         document.getElementById("eventPhotos").value=null; 
@@ -169,58 +191,47 @@ export default {
             }
            
         }
-
-        //建立活動publishEvent(啟用中)
-        function publishEvent(){
-            eventActive.value = true;
-        }
-        //存為草稿
-        function saveDraft(){
-            eventDraft.value = true;
-        }
-                
-        //store
-        const db = firebase.firestore();
+               
         //eventUpload 填寫後Upload
         async function eventUpload(){
-            loading.value = true
-            const productsCollection = db.collection('products').doc(); //create a collection with a new document
-            await productsCollection.set({
-                eventId: eventId.value,
-                eventTitle: eventTitle.value, 
-                eventType: eventType.value,
-                eventCategory: eventCategory.value,
-                eventLocation: eventLocation.value,
-                eventFullPrice: eventFullPrice.value,
-                eventStudentPrice: eventStudentPrice.value,
-                eventDiscountPrice: eventDiscountPrice.value,
-                eventStartDate: eventStartDate.value,
-                eventEndDate: eventEndDate.value,
-                eventDescription: eventDescription.value,
-                eventPhotos: eventPhotos.value,
-                eventActive: eventActive.value,
-                eventDraft: eventDraft.value
-            })
+            if(eventPhotos.value){
+                loading.value = true
+                const productsCollection = db.collection('products').doc(); //create a collection with a new document
+                await productsCollection.set({
+                    eventId: eventId.value,
+                    eventTitle: eventTitle.value, 
+                    eventType: eventType.value,
+                    eventCategory: eventCategory.value,
+                    eventLocation: eventLocation.value,
+                    eventFullPrice: eventFullPrice.value,
+                    eventStudentPrice: eventStudentPrice.value,
+                    eventDiscountPrice: eventDiscountPrice.value,
+                    eventStartDate: eventStartDate.value,
+                    eventEndDate: eventEndDate.value,
+                    eventDescription: eventDescription.value,
+                    eventActive: eventActive.value,
+                    eventDraft: eventDraft.value
+                })
+                //圖片上傳到storage
+                const imageRef = await firebase.storage().ref('Images/'+eventId.value+'.jpeg')
+                await imageRef.putString(eventPhotos.value, 'data_url').then((snapshot) => {
+                    console.log('Uploaded a data_url string!');
+                });
+                loading.value = false
 
-            loading.value = false
+                //close modal
+                closingModal()
 
-            //close modal
-            closingModal()
-
-            store.dispatch('getProduct')
+                store.dispatch('getProduct')
+            }else{
+                alert('沒有上傳照片喔!')
+            }
+            
         }
 
        
 
-        //submitForm上傳到firebase
-        function submitForm(){
-            if(productEdit.value){
-                 eventUpdate();
-                 return
-            }else{
-                eventUpload();
-            }
-        }
+        
 
         //關閉modal
         const store = useStore()
@@ -249,6 +260,7 @@ export default {
                 eventId.value = timeInMs;
             }
             if(productEdit.value){
+                console.log(currentProductArray.value.photoUrl)
                 docId.value = currentProductArray.value.docId
                 eventId.value = currentProductArray.value.data.eventId
                 eventTitle.value = currentProductArray.value.data.eventTitle
@@ -261,10 +273,9 @@ export default {
                 eventStartDate.value = currentProductArray.value.data.eventStartDate
                 eventEndDate.value = currentProductArray.value.data.eventEndDate
                 eventDescription.value = currentProductArray.value.data.eventDescription
-                eventPhotos.value = currentProductArray.value.data.eventPhotos
+                eventPhotos.value = currentProductArray.value.photoUrl
                 eventActive.value = currentProductArray.value.data.eventActive
                 eventDraft.value = currentProductArray.value.data.eventDraft
-                 console.log(currentProductArray)
             }
            
         })
@@ -284,9 +295,13 @@ export default {
                 eventStartDate: eventStartDate.value,
                 eventEndDate: eventEndDate.value,
                 eventDescription: eventDescription.value,
-                eventPhotos: eventPhotos.value,
+                eventActive: eventActive.value,
+                eventDraft: eventDraft.value
             })
-
+            //圖片更新到storage，相同ref會直接蓋過
+            firebase.storage().ref('Images/'+eventId.value+'.jpeg').putString(eventPhotos.value, 'data_url').then((snapshot) => {
+                console.log('Uploaded a data_url string!');
+            });
             const data = {
                 docId: docId.value,
                 eventId: eventId.value
