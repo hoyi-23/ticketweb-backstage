@@ -36,5 +36,8 @@ body.dark{
     input,textarea,select{
         background-color: var(--secondary-background-color);
         color: var(--secondary-text-color)
-    } 
+    }
+    .searchOrder{
+        color: #2a2b2e;
+    }
 }
