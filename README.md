@@ -9,7 +9,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 
 ## 運用
 1. vue cli3 快速建構專案
-2. firebase (authentication / firestore) 做為後端
+2. firebase (authentication / firestore / firebase storage) 做為後端
 3. Sass 做樣式管理
 4. Vue router 實現SPA
 5. VueX 實現資料管理
@@ -23,6 +23,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 4. 實現RWD
 5. 實現 theme toggle (dark/light mode)
 6. 顧客訂單管理(已表單列出/刪除/查看)
+7. localstorage就算重整還是保持登入狀態
 
 -------
 
@@ -45,9 +46,8 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 -------
 
 ## 預計完成
-1. localstorage保持登入狀態
-2. 加上場地與其他前台內容管理
-3. 刪除項目時的確認機制
+1. 加上場地與其他前台內容管理
+2. 刪除項目時的確認機制
 
 -------
 

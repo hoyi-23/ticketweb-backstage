@@ -31,10 +31,14 @@ firebase.initializeApp(firebaseConfig);
 firebase.initializeApp(secondaryAppConfig, "secondary");
 firebase.firestore().settings({experimentalForceLongPolling: true, merge: true })
 
+import {useStore} from 'vuex'
+
 //當authState改變，判斷是否為user，來移動路徑
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     router.replace('/dashboard')
+    console.log(localStorage.getItem('user'))
+    store.dispatch('currentUser',JSON.parse(localStorage.getItem('user')))
   }else{
     router.replace('/')
   }

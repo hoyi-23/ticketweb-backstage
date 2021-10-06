@@ -41,6 +41,9 @@ export default({
         firebase.auth().signOut()
         alert('登出成功'),
         commit('setUser',null)
+      },
+      currentUser({commit},payload){
+        commit('setUser',payload)
       }
 
     },
@@ -49,9 +52,11 @@ export default({
         if(payload){
           state.user = payload;
           state.userName = payload.email
+          localStorage.setItem('user',JSON.stringify(payload))
         }else{
           state.user = null;
           state.userName = '';
+          localStorage.removeItem('user')
         }
       }
     },
