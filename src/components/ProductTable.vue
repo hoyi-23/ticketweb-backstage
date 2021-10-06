@@ -21,6 +21,7 @@
             <button class="btn-cancel fw-bold" type="button" @click="editEvent(product.eventId)">編輯</button>
         </td>
     </tr>
+    
 </template>
 
 <script>
@@ -28,21 +29,30 @@ import {useStore} from 'vuex'
 export default {
     name: 'ProductTable',
     props: ['product'],
-
     setup(){
         const store = useStore();
         function editEvent(eventId){
             store.dispatch('editProduct',true)
             store.dispatch('getCurrentProduct',eventId)
         }
+        
         async function deleteEvent(docId,eventId){
-            await store.dispatch('deleteProduct',{docId,eventId})
+            const confirmDelete = await confirm("確定要刪除嗎? 一去不復返喔!")
+            if(confirmDelete){
+                store.dispatch('deleteProduct',{docId,eventId})
+                store.dispatch('getProduct')
+            }else{
+                return
+            }
             
-            store.dispatch('getProduct')
         }
+
+    
+
+        
         return{
             editEvent,
-            deleteEvent
+            deleteEvent,
         }
     }
 }

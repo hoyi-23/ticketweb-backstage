@@ -4,7 +4,8 @@ export default({
       showModal: false,
 
       //ExitCheck Modal
-      showExitCheckModal: false
+      showExitCheckModal: false,
+
     },
     actions: {
       showingModal({commit},payload){

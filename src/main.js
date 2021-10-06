@@ -37,7 +37,6 @@ import {useStore} from 'vuex'
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     router.replace('/dashboard')
-    console.log(localStorage.getItem('user'))
     store.dispatch('currentUser',JSON.parse(localStorage.getItem('user')))
   }else{
     router.replace('/')

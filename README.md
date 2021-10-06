@@ -24,6 +24,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 5. 實現 theme toggle (dark/light mode)
 6. 顧客訂單管理(已表單列出/刪除/查看)
 7. localstorage就算重整還是保持登入狀態
+8. 刪除項目時的確認機制(使用confirm)
 
 -------
 
@@ -43,11 +44,6 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
   4. 編輯商品
     ![](https://i.imgur.com/ayyETjA.png)
 
--------
-
-## 預計完成
-1. 加上場地與其他前台內容管理
-2. 刪除項目時的確認機制
 
 -------
 
@@ -107,7 +103,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
   }
 ```
 
-### firestore 上傳檔案大小限制
+### firestore 上傳檔案大小限制(解決)
 firestore上的檔案不能超過 1MiB，這個對於圖檔來說有點難。
 一開始我的做法是把圖檔壓縮再上傳，但是這樣在上傳圖檔時還是有很大限制。
 後來看到看到stack overflow上有人說可以將圖檔上傳到storage，
@@ -129,12 +125,12 @@ firebase提供了一個工具gsutil來處理同源政策問題
 2. 修改更新/新增/刪除方式(完成)
 針對不同格式檔案firebase都定義好上傳與下載的方式，真的很方便。
 
-### firebase firestore 載入問題(尚未解決，研究中)
+### firebase firestore 載入問題(解決)
 問題: 顯示網路連線不健康。
 思考: 看了很多資料，尚未得出結論。
-希望換成storage儲存圖檔會加速載入
+解決: 換成storage另外儲存圖檔後有加速載入
 
-### 同個表單做 正式發佈/草稿 區分
+### 同個表單做 正式發佈/草稿 區分(解決)
 我的方法是直接設兩個傳送值，分別為發佈和草稿。
 點選發佈按鈕 `eventActive.value = true;`
 點選儲存按鈕 `eventDraft.value = true;`
@@ -149,7 +145,7 @@ firebase提供了一個工具gsutil來處理同源政策問題
 若為true，表示是打開來編輯，就會將currentProductArray的值傳到表單上，等待它更新(Update)
 若為false，表示是新建活動，會將timestampe設為id，等待它建立(Upload)
 
-### 更新與建立
+### 更新與建立(解決)
 建立會在firestore創建一個新的doc，並將新獲得的Id與資料傳入。
 更新並不會重新建一個doc，而是利用傳入文件ID，doc(id).update來做更新
 現在已經更新到後端資料了，但是前端為了不要重複取資料，

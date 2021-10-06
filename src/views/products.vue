@@ -64,7 +64,7 @@ export default {
         const store = useStore();
         //跳出建立活動Modal的確認
         const showExitCheckModal = computed(()=>store.getters.showExitCheckModal)
-
+        
         //建立活動Modal
         const showModal = computed(()=>store.getters.showModal)
         function showingModal(){
@@ -77,6 +77,7 @@ export default {
         })
         const checkProductLoaded = computed(()=>store.getters.productLoaded)
         const productData = computed(()=>store.getters.productData)
+
         return{
             showExitCheckModal,
             showModal,

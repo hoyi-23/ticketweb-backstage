@@ -8,6 +8,7 @@
                     <button type="button" class="btn fw-bold btn-cancel" @click="closingBothModal">放棄編輯</button>
                 </div>
             </div>
+            
           </div>
         </div>
 </template>
@@ -26,9 +27,10 @@ export default {
           store.dispatch('closeExitCheck',false)
       }
 
+
       return{
           closingBothModal,
-          closeExitCheck
+          closeExitCheck,
       }
   }
 }

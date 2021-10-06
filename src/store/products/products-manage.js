@@ -54,7 +54,7 @@ export default({
       editProduct({commit},payload){
         commit('EDIT_PRODUCT',payload)
       },
-      //取得目前點選(刪除/編輯)資料
+      //取得目前點選(編輯)資料
       async getCurrentProduct(context,payload){
         var ImagesRef = await firebase.storage().ref('Images/');
         const query = await firebase.firestore().collection('products').where("eventId", "==", payload)
