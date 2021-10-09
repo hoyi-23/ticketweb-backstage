@@ -65,11 +65,11 @@
                         <div class="grid">
                             <div class="formInput grid__item--md-span-6">
                                 <label for="eventDateStart">開始日期</label>
-                                <input type="date" id="eventDateStart" v-model="eventStartDate" required/>
+                                <input type="date" id="eventDateStart" @change="checkEndDate(eventEndDate,eventStartDate)" v-model="eventStartDate" required/>
                             </div>
                             <div class="formInput grid__item--md-span-6">
                                 <label for="eventDateEnd">結束日期</label>
-                                <input type="date" id="eventDateEnd"  v-model="eventEndDate" required/>
+                                <input type="date" id="eventDateEnd"  @change="checkEndDate(eventEndDate,eventStartDate)" v-model="eventEndDate" required/>
                             </div>
                         </div>
         <!--活動內容-->
@@ -153,6 +153,15 @@ export default {
                  return
             }else{
                 eventUpload();
+            }
+        }
+        //檢查結束日期
+        function checkEndDate(e,a){
+            if(Date.parse(e) <= Date.parse(a)){
+                alert('結束日期不得在開始日期前')
+                eventEndDate.value = null
+            }else{
+                return
             }
         }
 
@@ -343,7 +352,8 @@ export default {
             showingExitCheck,
             eventUpload,
             productEdit,
-            eventUpdate
+            eventUpdate,
+            checkEndDate
         }
     }
 }
