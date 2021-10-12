@@ -26,6 +26,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 7. localstorage就算重整還是保持登入狀態
 8. 刪除項目時的確認機制(使用confirm)
 9. 增加表單輸入時，開始與結束日期的檢查判斷!
+10. 增加商品排序檢視(sort)
 
 -------
 

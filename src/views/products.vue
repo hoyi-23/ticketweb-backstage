@@ -110,7 +110,6 @@ export default {
 
         //排序
         const sortProducts = ref(null)
-
         watch(sortProducts,()=>{
             //console.log(sortProducts.value)
             switch(sortProducts.value){
@@ -131,6 +130,8 @@ export default {
                 }) 
             }
         })
+
+        
         
         return{
             showExitCheckModal,
