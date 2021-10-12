@@ -315,9 +315,14 @@ export default {
                 eventDraft: eventDraft.value
             })
             //圖片更新到storage，相同ref會直接蓋過
-            firebase.storage().ref('Images/'+eventId.value+'.jpeg').putString(eventPhotos.value, 'data_url').then((snapshot) => {
-                console.log('Uploaded a data_url string!');
-            });
+            //加上判斷: 如果有上傳新的file才會執行
+            console.log(eventPhotos.value)
+            const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+            if(base64regex.test(eventPhotos.value)){
+                firebase.storage().ref('Images/'+eventId.value+'.jpeg').putString(eventPhotos.value, 'data_url').then((snapshot) => {
+                    console.log('Uploaded a data_url string!');
+                });
+            }
             const data = {
                 docId: docId.value,
                 eventId: eventId.value
