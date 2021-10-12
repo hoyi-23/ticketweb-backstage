@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {onBeforeMount} from 'vue'
 import {useStore} from 'vuex'
 export default {
     name: 'ProductTable',

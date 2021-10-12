@@ -157,9 +157,15 @@ export default {
         }
         //檢查結束日期
         function checkEndDate(e,a){
+            let timeInMs = Date.now();
             if(Date.parse(e) <= Date.parse(a)){
                 alert('結束日期不得在開始日期前')
                 eventEndDate.value = null
+                eventStartDate.value = null
+            }else if(Date.parse(e)<=timeInMs || Date.parse(a)< timeInMs){
+                alert('日期設置有誤')
+                eventEndDate.value = null
+                eventStartDate.value = null
             }else{
                 return
             }

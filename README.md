@@ -25,6 +25,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 6. 顧客訂單管理(已表單列出/刪除/查看)
 7. localstorage就算重整還是保持登入狀態
 8. 刪除項目時的確認機制(使用confirm)
+9. 增加表單輸入時，開始與結束日期的檢查判斷!
 
 -------
 
