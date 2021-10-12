@@ -80,6 +80,8 @@ import ProductTable from '../components/ProductTable.vue'
 import OnLoad from '../components/OnLoad.vue'
 import {computed,onBeforeMount,ref,watch} from 'vue'
 import {useStore} from 'vuex'
+import firebase from 'firebase/app';
+import 'firebase/firestore'
 
 export default {
     name: 'products',
@@ -106,7 +108,7 @@ export default {
             
         })
         const checkProductLoaded = computed(()=>store.getters.productLoaded)
-        const productData = computed(()=>store.getters.productData)
+        
 
         //排序
         const sortProducts = ref(null)
@@ -131,8 +133,28 @@ export default {
             }
         })
 
-        
-        
+        //拿資料後檢查，活動是否已過期。若已過期自動將狀態轉為尚未啟用
+        //const productData = computed(()=>store.getters.productData)
+        const productData = computed(()=>{
+            const productList = store.getters.productData;
+            let timestamp = Date.now();
+            
+            const data = productList.map(e=>{
+                if(Date.parse(e.eventEndDate) <= timestamp){
+                    e.eventActive = false;
+                    e.eventDraft = true;
+                    //重新將活動更新(update)
+                     firebase.firestore().collection('products').doc(e.docId).update({
+                     eventActive: false,
+                     eventDraft:true
+                    })
+                }
+                return e
+
+            })
+            return data
+        })
+
         return{
             showExitCheckModal,
             showModal,

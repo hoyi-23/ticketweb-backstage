@@ -27,6 +27,7 @@ Demo: [gh-Page](https://hoyi-23.github.io/ticketweb-backstage/#/)
 8. 刪除項目時的確認機制(使用confirm)
 9. 增加表單輸入時，開始與結束日期的檢查判斷!
 10. 增加商品排序檢視(sort)
+11. 當活動結束日期小於現在日期(活動過了)，會自動轉為尚未啟用
 
 -------
 

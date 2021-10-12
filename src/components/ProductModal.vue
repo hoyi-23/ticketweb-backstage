@@ -230,6 +230,7 @@ export default {
                 //圖片上傳到storage
                 const imageRef = await firebase.storage().ref('Images/'+eventId.value+'.jpeg')
                 await imageRef.putString(eventPhotos.value, 'data_url').then((snapshot) => {
+                    
                     console.log('Uploaded a data_url string!');
                 });
                 loading.value = false
